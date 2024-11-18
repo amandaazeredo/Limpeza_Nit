@@ -1,0 +1,167 @@
+
+1. Nome do Projeto
+Portal Limpeza Nit + Relatórios Funcionais
+2. introdução
+Este projeto foi desenvolvido para atender um cliente real, a Limpeza Nit, empresa especializada em serviços de organização e higienização de escritórios. Como parte de um projeto de extensão universitária, esta iniciativa está sendo realizada de forma gratuita, com o intuito de aplicar e expandir conhecimentos acadêmicos na prática. O objetivo é fornecer à empresa uma solução completa para apresentar seus serviços de forma digital, facilitar a contratação online e aprimorar o controle de dados de clientes e de finanças.
+3. Descrição do Projeto e Objetivo
+Desenvolver um portal web para a empresa Limpeza Nit, especializada em organização e higienização de escritórios, com o objetivo de promover seus serviços e facilitar a contratação online. O portal incluirá funcionalidades para exibir o histórico de serviços, avaliações de clientes e um chatbot para cálculo aproximado do custo de limpeza com base na área solicitada.
+Além disso, será desenvolvido um sistema para importação e organização dos dados dos clientes, atualmente em planilhas, para um banco de dados centralizado, possibilitando maior controle, confiabilidade e consulta dos dados históricos.
+4. Escopo do Projeto
+Funcionalidades principais do portal:
+Interface para aumento de vendas de serviços com histórico e avaliação de clientes;
+Chatbot de cálculo de proposta (preço estimado por m²), direcionando ao final da interação o cliente para um atendimento via WhatsApp;
+Integração com API do google Agenda para verificação de datas disponíveis;
+Importação de dados a partir de planilhas para o banco de dados da empresa.
+Descrição técnica:
+Chatbot: Desenvolvido com JavaScript para troca de mensagens programadas (opt-in), apresentando uma estimativa de preço e conectando com o atendimento final via WhatsApp.
+Banco de Dados: Exibição de conteúdo baseado em uma conexão Java (Hibernate) com MySQL.
+Importação de Dados: Sistema em C# com .NET 8, utilizando a biblioteca NPOI para leitura de planilhas e SQL Server para armazenar informações de clientes e preços históricos.
+Relatórios: A criação dos relatórios funcionais será feita com o Looker Studio para a visualização do cliente por meio de conexão com o SQL Server para fornecimento de base de dados ao relatório.
+5. Fases e Ferramentas
+
+Ação
+Ferramenta
+Criação de API / Endpoint para receber o documento
+C#
+Leitura da Planilha
+C# + Biblioteca NPOI
+Implementação de Algoritmo 
+C#
+Worker para receber o documento e processar a importação com integração ao banco
+C# + .NET Framework
+FrontEnd básico para recebimento de arquivo e painel de processamento
+.NET 8
+Estrutura e Design do Site
+Figma
+Desenvolvimento da Página principal do site
+HTML 5
+Chatbot
+JavaScript + Bootstrap
+Estilo e Dinamismo
+CSS 3, JavaScript + Bootstrap
+Desenvolvimento de API para Exibir e Armazenar Informações no Banco de Dados
+C# e SQL Server
+Conexão com banco de dados para exibição de conteúdo
+C# e SQL Server
+
+
+6. Restrições e Premissas
+Privacidade: Não haverá manipulação de dados sensíveis dos clientes no portal, e as avaliações exibidas serão previamente autorizadas.
+Escopo e Alterações: O escopo inicial do projeto poderá ser expandido conforme alinhamento com o cliente, permitindo a inclusão de novas funcionalidades.
+Legislação e Conformidade: O projeto observará as diretrizes da LGPD para a coleta e exibição de dados dos clientes.
+7. Riscos
+Integração com o Banco de Dados: Possíveis dificuldades na migração de dados de planilhas para o SQL Server, exigindo tempo para validação e ajustes.
+Precisão da Estimativa do Chatbot: Possível divergência entre a estimativa calculada e o valor final acordado, gerando necessidade de acompanhamento.
+Mudanças de Escopo: Adição de funcionalidades não previstas pode impactar o prazo e o custo do projeto.
+8. Aprovação
+Responsáveis pela Aprovação
+
+Responsável pelo Projeto: _________________________________
+
+Cliente: _____________________________________
+
+9. Cronograma e Prazos
+Fase 1 (Importação de Planilha):
+Ação
+Responsável
+Prazo
+Levantamento dos Requisitos
+Amanda Azeredo e Limpeza Nit
+15/10/2024
+Desenvolvimento do Escopo Técnico
+Amanda Azeredo
+31/10/2024
+Desenvolvimento do sistema de Importação de Dados
+Amanda Azeredo
+22/11/2024
+Desenvolvimento de Relatório de serviços
+Amanda Azeredo
+29/11/2024
+Testes e Homologação do Sistema
+Limpeza Nit e Amanda Azeredo
+07/12/2024
+Desenvolvimento da segurança e acesso a aplicação web
+Amanda Azeredo
+20/01/2025
+Publicação da Aplicação Web
+Amanda Azeredo
+30/01/2025
+
+
+Fase 2 (Site):
+Ação
+Responsável
+Prazo
+Disponibilização das imagens e dados a serem implementados no Site
+Limpeza Nit
+Indefinido
+Estrutura e Design do Site
+Amanda Azeredo
+Indefinido
+Desenvolvimento da Página principal do site
+Amanda Azeredo
+Indefinido
+Chatbot
+Amanda Azeredo
+Indefinido
+Estilo e Dinamismo
+Amanda Azeredo
+Indefinido
+Testes e Homologação do Site
+Amanda Azeredo Limpeza Nit
+Indefinido
+Publicação do Site
+Amanda Azeredo
+Indefinido
+
+
+Fase 3 (API):
+Ação
+Responsável
+Prazo
+Desenvolvimento da API para comunicação com o banco
+Amanda Azeredo
+Indefinido
+Implementação da API no Site
+Amanda Azeredo
+Indefinido
+Homologação da API
+Amanda Azeredo
+Indefinido
+
+
+Fase 4 (Banco de dados):
+Ação
+Responsável
+Prazo
+Desenvolvimento de algoritmo para conexão da API com o banco
+Amanda Azeredo
+Indefinido
+Homologação da comunicação entre a API e o banco
+Amanda Azeredo
+Indefinido
+Aplicação da API com conexão ao banco no Site em Produção
+Amanda Azeredo
+Indefinido
+
+
+Fase 5 (Relatórios):
+Ação
+Responsável
+Prazo
+Criação de fonte de dados no Looker com conexão com SQL Server
+Amanda Azeredo
+Indefinido
+Desenvolvimento de relatórios de cliques e interesses do Site
+Amanda Azeredo
+Indefinido
+Desenvolvimento de relatório de clientes e lucros recebidos com base nos dados da planilha importados
+Amanda Azeredo
+Indefinido
+Entrega dos relatórios ao cliente
+Amanda Azeredo
+Indefinido
+
+
+10. Orçamento
+Este projeto é realizado de forma voluntária, sem custos para o cliente, como parte de um projeto de extensão universitária. Embora não haja orçamento direto envolvido, serão considerados custos indiretos, como infraestrutura de desenvolvimento (servidores de teste, ferramentas de software, etc.), serão de responsabilidade do cliente, que deverá arcar com essas despesas para garantir a viabilidade do projeto. O projeto inclui suporte e manutenção pelo período de 1 ano após a entrega, assegurando o funcionamento adequado e a adaptação conforme as necessidades do cliente.
