@@ -1,6 +1,6 @@
-﻿using VMA_API.Application.Exceptions;
+﻿using API.Application.Exceptions;
 
-namespace VMA_API.Application.Middleware
+namespace API.Application.Middleware
 {
     public class ExceptionHandler(RequestDelegate next, ILogger<ExceptionHandler> logger)
     {
