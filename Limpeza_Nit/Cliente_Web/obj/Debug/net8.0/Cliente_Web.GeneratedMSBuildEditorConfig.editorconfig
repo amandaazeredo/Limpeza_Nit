@@ -1,0 +1,57 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Cliente_Web
+build_property.RootNamespace = Cliente_Web
+build_property.ProjectDir = C:\Users\amand\OneDrive\Área de Trabalho\Limpeza_Nit\Cliente_Web\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\amand\OneDrive\Área de Trabalho\Limpeza_Nit\Cliente_Web
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Pages/FileImport.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsZUltcG9ydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Pages/InputSheet.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5wdXRTaGVldC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Pages/Weather.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-v25jz97sbv
+
+[C:/Users/amand/OneDrive/Área de Trabalho/Limpeza_Nit/Cliente_Web/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-sfud192n1q

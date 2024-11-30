@@ -1,0 +1,128 @@
+﻿@page "/InputSheet"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject HttpClient Http
+@inject HubConnection HubConnection
+<h3>Importar Arquivo</h3>
+
+ <InputFile OnChange="HandleFileSelected"/>
+<button @onclick="UploadFile" disabled="@isUploading">Enviar Arquivo</button>
+<progress value="@ProgressoAtual" max="100"></progress>
+
+<div>
+    @foreach (var inputId in inputIds)
+    {
+        <div>
+            <InputFile OnChange="HandleFileSelected" id="@inputId"/>
+            <button @onclick="UploadFile" disabled="@isUploading">Enviar Arquivo</button>
+            <progress value="@dict.GetValueOrDefault(inputId)" max="100"></progress>
+        </div>
+    }
+</div>
+
+<button class="btn btn-primary" @onclick="AdicionarNovoInput">Adicionar Novo Arquivo</button>
+
+@*<p>@uploadStatus</p>
+<h3>Progresso do Upload</h3>
+<progress value="@ProgressoAtual" max="100"></progress>
+<p>@mensagemProgresso</p> *@
+
+@code {
+    private string mensagemProgresso = string.Empty;
+    private IBrowserFile selectedFile;
+    private string uploadStatus = "";
+    private bool isUploading = false;
+    public int ProgressoAtual { get; set; } = 0;
+    public string fileName = "";
+    Dictionary<string, int> dict = new();
+
+    private List<string> inputIds = new List<string>(); // Lista de IDs dos inputs
+    private int contadorInputs = 1; // Contador para gerar IDs únicos
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+        uploadStatus = $"Arquivo selecionado: {selectedFile.Name}";
+        fileName = selectedFile.Name.Replace(".xlsx", "");
+    }
+
+    // Método para adicionar um novo input
+    private void AdicionarNovoInput()
+    {
+        inputIds.Add($"fileInput{contadorInputs}");
+        dict.Add($"fileInput{contadorInputs}", contadorInputs);
+        contadorInputs++;
+    }
+
+    private async Task UploadFile()
+    {
+        if (selectedFile != null)
+        {
+            isUploading = true;
+            uploadStatus = "Enviando arquivo...";
+
+            try
+            {
+                // Criando o conteúdo da requisição
+                var content = new MultipartFormDataContent();
+                var fileContent = new StreamContent(selectedFile.OpenReadStream(5000000)); // Limite de 5MB para o stream
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(selectedFile.ContentType);
+                content.Add(fileContent, "file", selectedFile.Name);
+
+                // Enviando a requisição para o endpoint
+                var response = await Http.PostAsync("https://localhost:7118/api/importacao", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    uploadStatus = "Arquivo enviado com sucesso!";
+                }
+                else
+                {
+                    uploadStatus = $"Falha no envio: {response.ReasonPhrase}";
+                }
+            }
+            catch (Exception ex)
+            {
+                uploadStatus = $"Erro: {ex.Message}";
+            }
+            finally
+            {
+                isUploading = false;
+            }
+        }
+        else
+        {
+            uploadStatus = "Nenhum arquivo selecionado.";
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        HubConnection = new HubConnectionBuilder().WithUrl("https://localhost:7118/hub").Build();
+
+        HubConnection.Closed += async (err) =>
+        {
+            await Task.Delay(4000);
+            await HubConnection.StartAsync();
+        };
+
+        HubConnection.On<int>("InfoValidacao - ReceiveProgress", async (int progress) =>
+        {
+            await InvokeAsync(() =>
+            {
+                ProgressoAtual = progress;
+                Console.WriteLine(progress);
+                Console.WriteLine(fileName);
+                mensagemProgresso = $"Progresso: {ProgressoAtual}%";
+                StateHasChanged();
+            });
+            
+        });
+
+        // Iniciar a conexão com o hub
+        await HubConnection.StartAsync();
+    }
+
+    public void DisposeAsync() => HubConnection.DisposeAsync();
+
+}

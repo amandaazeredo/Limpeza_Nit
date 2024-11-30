@@ -1,0 +1,107 @@
+﻿@page "/FileImport"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject HttpClient Http
+@inject HubConnection HubConnection
+
+<h3>Upload de Múltiplos Arquivos com Progresso</h3>
+
+<div>
+    <div class="input-group mb-3">
+        <InputFile OnChange="OnFileSelected" />
+    </div>
+
+    @foreach (var arquivo in arquivos)
+    {
+        <div class="input-group mb-3">
+            <div>
+                <span>@arquivo.Nome (@arquivo.Progresso%)</span>
+                <progress value="@arquivo.Progresso" max="100"></progress>
+            </div>
+            <span>@uploadStatus</span>
+        </div>
+    }
+</div>
+
+<button class="btn btn-primary" @onclick="UploadArquivos">Fazer Upload</button>
+
+@code {
+    private HubConnection _hubConnection;
+    private List<ArquivoUpload> arquivos = new List<ArquivoUpload>();
+    private string uploadStatus = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Configurando a conexão com o Hub SignalR
+        _hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7118/hub")
+            .Build();
+
+        _hubConnection.Closed += async (err) =>
+        {
+            await Task.Delay(4000);
+            await HubConnection.StartAsync();
+        };
+
+        // Recebe o progresso dos arquivos
+        _hubConnection.On<string, int>("UpdateProgress", (idArquivo, progresso) =>
+        {
+            var arquivo = arquivos.FirstOrDefault(a => a.Id == idArquivo);
+            if (arquivo != null)
+            {
+                arquivo.Progresso = progresso;
+                InvokeAsync(StateHasChanged); // Atualiza a interface
+            }
+        });
+
+        await _hubConnection.StartAsync();
+    }
+
+    private async void OnFileSelected(InputFileChangeEventArgs e)
+    {
+        var arquivoSelecionado = e.File;
+        if (arquivoSelecionado != null)
+        {
+            await InvokeAsync(() =>
+            {
+                arquivos.Add(new ArquivoUpload
+                    {
+                        Id = Guid.NewGuid().ToString(), // Gera um ID único para o arquivo
+                        Nome = arquivoSelecionado.Name,
+                        Arquivo = arquivoSelecionado
+                    });
+                StateHasChanged();
+            });
+
+        }
+    }
+
+    private async Task UploadArquivos()
+    {
+        foreach (var arquivo in arquivos)
+        {
+            if (arquivo.isEnviado)
+                continue;
+
+            using var content = new MultipartFormDataContent();
+            content.Add(new StreamContent(arquivo.Arquivo.OpenReadStream()), "file", arquivo.Nome);
+            content.Add(new StringContent(arquivo.Id), "arquivoId"); // Inclui o ID no upload
+
+            // Enviar o arquivo para a API
+            var response = await Http.PostAsync("https://localhost:7118/api/importacao", content);
+            if (response.IsSuccessStatusCode)
+                arquivo.isEnviado = true;
+            else 
+                uploadStatus = $"Falha no envio: {response.ReasonPhrase}";
+        }
+    }
+
+    public class ArquivoUpload
+    {
+        public string Id { get; set; } // Identificador único para cada arquivo
+        public string Nome { get; set; }
+        public IBrowserFile Arquivo { get; set; }
+        public int Progresso { get; set; }
+        public bool isEnviado { get; set; } = false;
+    }
+}
+
