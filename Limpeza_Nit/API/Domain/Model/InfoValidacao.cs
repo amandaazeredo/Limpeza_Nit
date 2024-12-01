@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
 namespace API.Domain.Model
+
 {
     public class InfoValidacao
     {
